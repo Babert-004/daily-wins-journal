@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wins – Your Journal ✨</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dawn">
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Lock Screen -->
+    <div id="lockScreen" class="lock-screen">
+        <div class="lock-content glass">
+            <div class="lock-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h2 class="lock-title">A quiet moment awaits...</h2>
+            <p class="lock-message">Enter your Calm Code</p>
+            
+            <div class="pin-inputs">
+                <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" />
+                <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" />
+                <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" />
+                <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" />
+            </div>
+            
+            <button class="forgot-link" onclick="window.app.showForgotCodeModal()">Forgot your code?</button>
+        </div>
+    </div>
+    
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="view active">
+        <header class="app-header">
+            <h1 class="app-title">Daily Wins – Your Journal ✨</h1>
+            <div class="header-actions">
+                <button id="searchBtn" class="icon-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button id="settingsBtn" class="icon-btn" aria-label="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Add Entry Card -->
+        <div class="add-card glass">
+            <div class="add-card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                    <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                </svg>
+            </div>
+            <p class="add-card-text">What felt good today?</p>
+            <button id="addEntryBtn" class="btn-primary">Add a Win</button>
+        </div>
+
+        <!-- Recent Entries Preview -->
+        <div class="recent-section">
+            <h2 class="section-title">Recent Moments</h2>
+            <div id="recentEntries" class="recent-grid"></div>
+            <button id="viewAllBtn" class="btn-secondary">View Timeline</button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+            <div class="empty-icon">📖</div>
+            <h2 class="empty-title">Your story starts here</h2>
+            <p class="empty-text">A quiet day – beauty in rest. 🌿</p>
+        </div>
+    </div>
+
+    <!-- Add Entry Modal -->
+    <div id="addModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <div class="modal-date" id="entryDate"></div>
+                <button class="modal-close" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <textarea id="entryText" class="entry-input" placeholder="Your win or moment that matters..." rows="4"></textarea>
+                
+                <div class="entry-options">
+                    <!-- Tag Selection -->
+                    <div class="option-group">
+                        <label class="option-label">Tag</label>
+                        <div class="tag-bubbles" id="tagBubbles"></div>
+                    </div>
+
+                    <!-- Emoji/Mood Selection -->
+                    <div class="option-group">
+                        <label class="option-label">Mood</label>
+                        <div class="emoji-grid" id="emojiGrid"></div>
+                    </div>
+
+                    <!-- Optional Note -->
+                    <div class="option-group">
+                        <label class="option-label">Note (optional)</label>
+                        <textarea id="entryNote" class="note-input" placeholder="A quiet reflection..." rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="laterBtn" class="btn-ghost">Later</button>
+                <button id="saveBtn" class="btn-primary btn-save">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                    </svg>
+                    <span>Save if ready?</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline View -->
+    <div id="timeline" class="view">
+        <header class="view-header">
+            <button id="backToHome" class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <h2>Your Timeline</h2>
+            <div class="timeline-actions">
+                <select id="filterTag" class="filter-select">
+                    <option value="">All Tags</option>
+                </select>
+                <input type="search" id="searchInput" class="search-input" placeholder="Search entries...">
+            </div>
+        </header>
+        
+        <div id="entriesContainer" class="entries-grid"></div>
+        
+        <div id="timelineEmpty" class="empty-state">
+            <div class="empty-icon">🌸</div>
+            <h2 class="empty-title">No entries yet</h2>
+            <p class="empty-text">Begin your journey whenever you're ready</p>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings" class="settings-panel">
+        <div class="settings-overlay"></div>
+        <div class="settings-content glass">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button id="closeSettings" class="modal-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="settings-body">
+                <!-- Theme Selection -->
+                <div class="settings-section">
+                    <h3 class="settings-title">Choose Your Theme</h3>
+                    <div class="theme-swatches" id="themeSwatches">
+                        <button class="theme-swatch" data-theme="dawn" aria-label="Dawn">
+                            <span class="swatch-colors">
+                                <span style="background: linear-gradient(135deg, #FFE5B4 0%, #FFB6C1 100%)"></span>
+                            </span>
+                            <span class="swatch-name">Dawn</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="dusk" aria-label="Dusk">
+                            <span class="swatch-colors">
+                                <span style="background: linear-gradient(135deg, #9D50BB 0%, #6E48AA 100%)"></span>
+                            </span>
+                            <span class="swatch-name">Dusk</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="minimal" aria-label="Minimal">
+                            <span class="swatch-colors">
+                                <span style="background: linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 100%)"></span>
+                            </span>
+                            <span class="swatch-name">Minimal</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="nature" aria-label="Nature">
+                            <span class="swatch-colors">
+                                <span style="background: linear-gradient(135deg, #A8E6CF 0%, #DCEDC1 100%)"></span>
+                            </span>
+                            <span class="swatch-name">Nature</span>
+                        </button>
+                        <button class="theme-swatch" data-theme="cosmic" aria-label="Cosmic">
+                            <span class="swatch-colors">
+                                <span style="background: linear-gradient(135deg, #141E30 0%, #243B55 100%)"></span>
+                            </span>
+                            <span class="swatch-name">Cosmic</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pretty Mode -->
+                <div class="settings-section">
+                    <h3 class="settings-title">Pretty Mode</h3>
+                    <label class="toggle-option">
+                        <input type="checkbox" id="prettyMode" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Floating particles</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="checkbox" id="celebrationMode" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Save celebrations</span>
+                    </label>
+                </div>
+
+                <!-- Privacy / Calm Code -->
+                <div class="settings-section">
+                    <h3 class="settings-title">Privacy</h3>
+                    <div id="privacyStatus"></div>
+                    <div id="privacyActions" class="privacy-actions"></div>
+                </div>
+
+                <!-- Custom Tags -->
+                <div class="settings-section">
+                    <h3 class="settings-title">Your Tags</h3>
+                    <div id="customTags" class="custom-tags-list"></div>
+                    <div class="add-tag-form">
+                        <input type="text" id="newTagInput" placeholder="New tag name..." maxlength="20">
+                        <button id="addTagBtn" class="btn-small">Add</button>
+                    </div>
+                </div>
+
+                <!-- Export/Import Data -->
+                <div class="settings-section">
+                    <h3 class="settings-title">Your Data</h3>
+                    <label class="toggle-option">
+                        <input type="checkbox" id="exportReadableMode" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Export readable text version</span>
+                    </label>
+                    <div class="data-actions">
+                        <button id="exportBtn" class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Export Entries
+                        </button>
+                        <button id="importBtn" class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            Import Entries
+                        </button>
+                    </div>
+                    <input type="file" id="importFile" accept=".json,.txt" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Code Modal -->
+    <div id="forgotCodeModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass forgot-code-modal">
+            <div class="modal-header">
+                <div class="modal-date">Can't remember your code?</div>
+                <button class="modal-close" id="closeForgotCodeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="forgot-code-icon">🔐</div>
+                <p class="forgot-code-text">
+                    To protect your privacy, we can't recover your code. However, we can help you safely export your encrypted entries and then reset the journal.
+                </p>
+                <p class="forgot-code-subtext">
+                    You can try to remember your old code later to decrypt the backup file.
+                </p>
+                
+                <div class="forgot-code-warning">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>This will create a backup and start a fresh journal.</span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelForgotCodeBtn" class="btn-ghost">Cancel</button>
+                <button id="exportAndResetBtn" class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Export & Reset</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decrypt Import Modal -->
+    <div id="decryptImportModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass decrypt-import-modal">
+            <div class="modal-header">
+                <div class="modal-date">Encrypted Backup Detected</div>
+                <button class="modal-close" id="closeDecryptImportModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="decrypt-icon">🔐</div>
+                <p class="decrypt-message">Enter your original Calm Code to decrypt <span id="decryptEntryCount">0</span> entries</p>
+                
+                <div class="pin-inputs" id="decryptPinInputs">
+                    <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="decryptPin1" />
+                    <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="decryptPin2" />
+                    <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="decryptPin3" />
+                    <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="decryptPin4" />
+                </div>
+                
+                <p class="decrypt-error" id="decryptError"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelDecryptBtn" class="btn-ghost">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Set Calm Code Modal -->
+    <div id="setCalmCodeModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass calm-code-modal">
+            <div class="modal-header">
+                <div class="modal-date">Set Your Calm Code</div>
+                <button class="modal-close" id="closeCalmCodeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="calm-code-instructions">Create a 4-digit code to protect your journal. Your entries will be encrypted.</p>
+                
+                <div class="calm-code-step" id="calmCodeStep1">
+                    <label class="option-label">Enter Your Code</label>
+                    <div class="pin-inputs">
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="setPin1" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="setPin2" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="setPin3" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="setPin4" />
+                    </div>
+                </div>
+                
+                <div class="calm-code-step" id="calmCodeStep2" style="display: none;">
+                    <label class="option-label">Confirm Your Code</label>
+                    <div class="pin-inputs">
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="confirmPin1" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="confirmPin2" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="confirmPin3" />
+                        <input type="password" inputmode="numeric" pattern="[0-9]" maxlength="1" class="pin-input" id="confirmPin4" />
+                    </div>
+                    <p class="calm-code-error" id="calmCodeError"></p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelCalmCodeBtn" class="btn-ghost">Cancel</button>
+                <button id="setCalmCodeBtn" class="btn-primary">
+                    <span>Set Code</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Effect -->
+    <canvas id="celebration"></canvas>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
