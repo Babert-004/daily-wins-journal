@@ -1706,7 +1706,13 @@ class DailyWinsApp {
         if (!lockScreen) return;
         
         lockScreen.classList.add('active');
-        document.getElementById('dashboard').classList.remove('active');
+        
+        // Hide all views to prevent entries from being visible
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        
+        // Clear rendered entries for privacy
+        document.getElementById('recentEntries').innerHTML = '';
+        document.getElementById('entriesContainer').innerHTML = '';
         
         // Clear any entered PIN
         this.clearPinInput();
@@ -1732,6 +1738,7 @@ class DailyWinsApp {
             await this.decryptAllEntries();
         }
         
+        // Re-render dashboard to show entries
         this.showDashboard();
         this.startAutoLockTimer();
         this.showToast('Welcome back. 🌸');
@@ -1747,6 +1754,8 @@ class DailyWinsApp {
         this.isUnlocked = false;
         this.unlockKey = null;
         this.clearAutoLockTimer();
+        
+        // Show lock screen (which will hide and clear entries)
         this.showLockScreen();
     }
     
