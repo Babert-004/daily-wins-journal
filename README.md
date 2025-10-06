@@ -81,7 +81,7 @@ A serene, visually captivating digital journal for capturing daily wins and mome
 5. Add custom tags for your needs
 
 ### Viewing Entries
-- **Dashboard** - See 3 most recent entries
+- **Dashboard** - See 4 most recent entries
 - **Timeline** - View all entries in beautiful grid
 - **Filter** - Sort by tag
 - **Search** - Find by keyword
