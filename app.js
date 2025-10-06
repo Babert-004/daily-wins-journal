@@ -553,7 +553,7 @@ class DailyWinsApp {
             emptyState.style.display = 'none';
             viewAllBtn.style.display = 'inline-flex';
             
-            const recent = this.entries.slice(0, 3);
+            const recent = this.entries.slice(0, 4);
             recentEntries.innerHTML = recent.map((entry, index) => this.createEntryCard(entry, index * 0.1, false)).join('');
             
             // Add click handlers to open for editing
